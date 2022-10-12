@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { IWeather } from './shared/model/weather.model';
+import { WeatherService } from './shared/service/weather.service';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +8,20 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'weather-angular';
+  city: string = '';
+  weatherDay!: IWeather;
+  
+  constructor(private weatherService: WeatherService) {}
+
+  ngOnInit() {
+    
+  }
+
+  getWeatherByCity(city: string) {
+    this.weatherService.getWeatherByCity(this.city).subscribe((response: IWeather) => {
+      this.weatherDay = response;
+      console.log(response)
+    })
+  }
+
 }

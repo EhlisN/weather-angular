@@ -1,0 +1,15 @@
+<h3>{{ weatherDay.name }}</h3>
+<div class="current-weather">
+  <div class="clouds">
+    <img [src]="getIcon(weatherDay.weather[0].icon)" />
+    {{ weatherDay.weather[0].icon }}{{ weatherDay.weather[0].main }}
+  </div>
+  <div class="temp">
+    {{ weatherDay.main.temp }} {{ weatherDay.main.feels_like }}
+  </div>
+  <div class="duration">
+    {{ getDate(weatherDay.sys.sunrise) }}
+    {{ getDate(weatherDay.sys.sunset) }}
+    <!-- {{weatherDay.sys.sunrise}} -->
+  </div>
+</div>
