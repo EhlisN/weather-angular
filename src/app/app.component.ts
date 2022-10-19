@@ -19,8 +19,9 @@ export class AppComponent {
   isShowFiveDay: boolean = false;
   isShowMoreInfo: boolean = false;
   dayWeek: string = 'Today';
-  notFound: string = '';
-  errorMessage!: string;
+  isError: boolean = false;
+  btn1: string = 'focus';
+  btn2: string = '';
 
   constructor(private weatherService: WeatherService) {}
 
@@ -29,6 +30,8 @@ export class AppComponent {
   public showFiveDay() {
     this.isShowToday = false;
     this.isShowFiveDay = true;
+    this.btn1 = '';
+    this.btn2 = 'focus';
   }
 
   public showOneDay() {
@@ -37,20 +40,25 @@ export class AppComponent {
     this.isShowMoreInfo = true;
     this.dayWeek = 'Today';
     this.selectedForecast = this.forecastToday;
+    this.btn1= 'focus';
+    this.btn2= '';
   }
 
   public getWeatherByCity(city: string) {
     this.weatherService.getWeatherByCity(city).subscribe(
       (response: IWeather) => {
-        this.notFound = '';
+        console.log(response)
+        this.isError = false;
         this.weatherToday = response;
         this.getForecastByCity(city);
         this.showOneDay();
       },
       (err: Error) => {
-        this.notFound = `'${city}' not found!!!`;
+        console.log(err);
+        this.isError = true;
       }
     );
+
   }
   public getForecastByCity(city: string) {
     this.weatherService

@@ -8,12 +8,15 @@
       </button>
     </div>
   </header>
-  <div class="notFound">{{ notFound }}</div>
-  <div class="weatherToday" *ngIf="isShowToday || isShowFiveDay">
+  <div class="notFound" *ngIf="isError"></div>
+  <div
+    class="weatherToday"
+    *ngIf="(!isError && isShowToday) || (!isError && isShowFiveDay)"
+  >
     <div class="weaterTodayHeader">
       <div class="btns">
-        <button (click)="showOneDay()">One day</button>
-        <button (click)="showFiveDay()">Five day</button>
+        <button (click)="showOneDay()" class="{{ btn1 }}">One day</button>
+        <button (click)="showFiveDay()" class="{{ btn2 }}">Five day</button>
       </div>
       <h2>{{ weatherToday.name }}</h2>
     </div>
