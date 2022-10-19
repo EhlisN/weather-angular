@@ -1,10 +1,49 @@
-<header>
-  <h1 class="logo">Weather</h1>
-  <input type="text" [(ngModel)]="city" placeholder="Enter city" />
-  <button (click)="getWeatherByCity(city)">Show</button>
-  <div class="showWeather"></div>
-  <app-weather-card
-    *ngIf="weatherDay?.weather"
-    [weatherDay]="weatherDay"
-  ></app-weather-card>
-</header>
+<div class="main-container">
+  <header>
+    <h1 class="logo">Weather</h1>
+    <div>
+      <input type="text" [(ngModel)]="city" placeholder="Enter city" />
+      <button (click)="getWeatherByCity(city)" [disabled]="!city">
+        Search
+      </button>
+    </div>
+  </header>
+  <div class="notFound">{{ notFound }}</div>
+  <div class="weatherToday" *ngIf="isShowToday || isShowFiveDay">
+    <div class="weaterTodayHeader">
+      <div class="btns">
+        <button (click)="showOneDay()">One day</button>
+        <button (click)="showFiveDay()">Five day</button>
+      </div>
+      <h2>{{ weatherToday.name }}</h2>
+    </div>
+    <app-weather-card [weatherToday]="weatherToday" *ngIf="isShowToday">
+    </app-weather-card>
+    <div class="forecast" *ngIf="isShowFiveDay">
+      <app-forecast
+        *ngFor="let forecastOneDay of forecastFiveDays"
+        [forecastOneDay]="forecastOneDay"
+        [(selectedForecast)]="selectedForecast"
+        [(isShowMoreInfo)]="isShowMoreInfo"
+        [(dayWeek)]="dayWeek"
+      ></app-forecast>
+    </div>
+    <div class="forecast-card" *ngIf="isShowMoreInfo">
+      <h3>HOURLY</h3>
+      <div class="hourly">
+        <div *ngIf="selectedForecast?.length">
+          <h3 class="time">{{ dayWeek }}</h3>
+          <div class="img"></div>
+          <div class="desc">Forecast</div>
+          <div class="temp">Temp</div>
+          <div class="realTemp">Real Feel</div>
+        </div>
+        <app-forecast-card
+          *ngFor="let forecastHourly of selectedForecast"
+          [forecastHourly]="forecastHourly"
+        >
+        </app-forecast-card>
+      </div>
+    </div>
+  </div>
+</div>

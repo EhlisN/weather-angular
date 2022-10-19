@@ -4,27 +4,32 @@ import { IWeather } from 'src/app/shared/model/weather.model';
 @Component({
   selector: 'app-weather-card',
   templateUrl: './weather-card.component.html',
-  styleUrls: ['./weather-card.component.scss']
+  styleUrls: ['./weather-card.component.scss'],
 })
 export class WeatherCardComponent implements OnInit {
+  @Input() weatherToday!: IWeather;
 
-  @Input() weatherDay!: IWeather;
+  constructor() {}
 
-  constructor() { }
+  ngOnInit(): void {}
 
-  ngOnInit(): void {
+  public getDate(ms: number) {
+    let date = new Date(ms * 1000);
+    let hours = date.getHours();
+    let minutes = date.getMinutes();
+    return `${hours}:${minutes < 10 ? '0' + minutes : minutes}`;
   }
 
-  getDate(ms: number) {
-    let date = new Date(ms);
-    console.log(date.toString())
-    // console.log(date.getHours())
-    // console.log(date.getMinutes())
-    return `${date.getHours()}:${date.getMinutes()}`;
+  public getTemp(temp: number) {
+    return Math.round(temp);
   }
 
-  getIcon(iconName: string): string {
-    return `http://openweathermap.org/img/w/${iconName}.png`
+  public getIcon(iconName: string): string {
+    return `http://openweathermap.org/img/w/${iconName}.png`;
   }
 
+  public getCurrentDate() {
+    let today = new Date();
+    return `${today.getDate()}.${today.getMonth() + 1}.${today.getFullYear()}`;
+  }
 }
