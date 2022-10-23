@@ -37,8 +37,14 @@ export class ForecastComponent implements OnInit {
   }
 
   public getDate(ms: number) {
-    this.description = this.forecastOneDay[0]?.weather[0].main;
-    this.icon = `http://openweathermap.org/img/w/${this.forecastOneDay[0]?.weather[0].icon}.png`;
+    this.description =
+      this.forecastOneDay[
+        Math.floor(this.forecastOneDay.length / 2)
+      ]?.weather[0].main;
+    this.icon = `http://openweathermap.org/img/w/${
+      this.forecastOneDay[Math.floor(this.forecastOneDay.length / 2)]
+        ?.weather[0].icon
+    }.png`;
     this.temp = Math.round(
       this.forecastOneDay[Math.floor(this.forecastOneDay.length / 2)]?.main.temp
     );

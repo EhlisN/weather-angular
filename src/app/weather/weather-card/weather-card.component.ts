@@ -8,13 +8,14 @@ import { IWeather } from 'src/app/shared/model/weather.model';
 })
 export class WeatherCardComponent implements OnInit {
   @Input() weatherToday!: IWeather;
+  @Input() curOffSet!: number;
 
   constructor() {}
 
   ngOnInit(): void {}
 
-  public getDate(ms: number) {
-    let date = new Date(ms * 1000);
+  public getDate(ms: number, curOffSet: number) {
+    let date = new Date((ms + curOffSet) * 1000);
     let hours = date.getHours();
     let minutes = date.getMinutes();
     return `${hours}:${minutes < 10 ? '0' + minutes : minutes}`;

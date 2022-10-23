@@ -1,6 +1,7 @@
 <div class="forecast-card">
-  <h3 class="time">{{ forecastHourly.dt * 1000 | date: "h a" }}</h3>
-
+  <h3 class="time">
+    {{ getDate(forecastHourly.dt) }}
+  </h3>
   <img
     class="img"
     src="{{ getIcon(forecastHourly.weather[0].icon) }}"

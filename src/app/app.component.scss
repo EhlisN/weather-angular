@@ -15,30 +15,40 @@
     h1 {
       text-shadow: rgb(255, 255, 255) 3px 0 5px;
     }
-    input {
-      width: 30vw;
-      padding: 10px 20px;
-      border: none;
-      outline: none;
-      background-color: rgba(255, 255, 255, 0.479);
-      box-shadow: 0px 0px 15px 1px rgba(255, 255, 255, 0.3);
-    }
-    button {
-      padding: 10px 20px;
-      box-shadow: 0px 0px 15px 1px rgba(255, 255, 255, 0.2);
-      &:disabled {
-        background-color: rgb(62, 77, 90);
-      }
-    }
-    @media (max-width: 640px) {
-      padding: 10px;
-      h1 {
-        font-size: 20px;
-      }
-      input,
-      button {
-        padding: 5px 20px;
+    form {
+      position: relative;
+      .error {
+        position: absolute;
+        top: 37px;
+        left: 10px;
         font-size: 12px;
+        color: brown;
+      }
+      input {
+        width: 30vw;
+        padding: 10px 20px;
+        border: none;
+        outline: none;
+        background-color: rgba(255, 255, 255, 0.479);
+        box-shadow: 0px 0px 15px 1px rgba(255, 255, 255, 0.3);
+      }
+      button {
+        padding: 10px 20px;
+        box-shadow: 0px 0px 15px 1px rgba(255, 255, 255, 0.2);
+        &:disabled {
+          background-color: rgb(62, 77, 90);
+        }
+      }
+      @media (max-width: 640px) {
+        padding: 10px;
+        h1 {
+          font-size: 20px;
+        }
+        input,
+        button {
+          padding: 5px 20px;
+          font-size: 12px;
+        }
       }
     }
   }
@@ -47,7 +57,7 @@
     height: 60vh;
     background: url(../assets/img/error.jpg) no-repeat center/100%;
     margin: 20px auto;
-    opacity: 0.75;
+    opacity: 0.8;
   }
   .weatherToday {
     background-color: rgba(255, 255, 255, 0.65);
@@ -63,7 +73,7 @@
         padding: 10px 60px;
         border-right: 1px solid rgb(85, 103, 118);
         &.focus {
-          background-color: rgb(85, 103, 118);
+          background-color: rgb(74, 89, 101);
         }
       }
       h2 {

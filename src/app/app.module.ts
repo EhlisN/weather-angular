@@ -4,7 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { WeatherCardComponent } from './weather/weather-card/weather-card.component';
 import { ForecastComponent } from './weather/forecast/forecast.component';
 import { ForecastCardComponent } from './weather/forecast-card/forecast-card.component';
@@ -14,15 +14,16 @@ import { ForecastCardComponent } from './weather/forecast-card/forecast-card.com
     AppComponent,
     WeatherCardComponent,
     ForecastComponent,
-    ForecastCardComponent
+    ForecastCardComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule,
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

@@ -9,6 +9,7 @@ import { IList } from 'src/app/shared/model/forecast.model';
 export class ForecastCardComponent implements OnInit {
   @Input() forecastHourly!: IList;
   @Input() day!: string;
+  @Input() curOffSet!: number;
 
   constructor() {}
 
@@ -16,6 +17,13 @@ export class ForecastCardComponent implements OnInit {
 
   public getTemp(temp: number) {
     return Math.round(temp);
+  }
+
+  public getDate(ms: number) {
+    let date = new Date((ms + this.curOffSet) * 1000);
+    let hours = date.getHours();
+    let minutes = date.getMinutes();
+    return `${hours}:${minutes < 10 ? '0' + minutes : minutes}`;
   }
 
   public getIcon(iconName: string): string {

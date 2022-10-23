@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { IForecast, IList } from './shared/model/forecast.model';
 import { IWeather } from './shared/model/weather.model';
 import { WeatherService } from './shared/service/weather.service';
@@ -22,6 +23,7 @@ export class AppComponent {
   isError: boolean = false;
   btn1: string = 'focus';
   btn2: string = '';
+  curOffSet: number = 0;
 
   constructor(private weatherService: WeatherService) {}
 
@@ -40,25 +42,43 @@ export class AppComponent {
     this.isShowMoreInfo = true;
     this.dayWeek = 'Today';
     this.selectedForecast = this.forecastToday;
-    this.btn1= 'focus';
-    this.btn2= '';
+    this.btn1 = 'focus';
+    this.btn2 = '';
+  }
+
+  public onKeyPress(e: any) {
+    if (e.keyCode === 13 && e.target.value) {
+      this.city = e.target.value;
+      this.getWeatherByCity(this.city);
+    }
+  }
+
+  public enterCity = new FormGroup({
+    cityName: new FormControl('', [
+      Validators.pattern(/^[а-яА-Яa-zA-Z]+$/),
+      Validators.required,
+    ]),
+  });
+
+  get cityName() {
+    return this.enterCity.get('cityName');
   }
 
   public getWeatherByCity(city: string) {
     this.weatherService.getWeatherByCity(city).subscribe(
       (response: IWeather) => {
-        console.log(response)
         this.isError = false;
         this.weatherToday = response;
         this.getForecastByCity(city);
         this.showOneDay();
+        const offSet = new Date(this.weatherToday.dt).getTimezoneOffset() * 60;
+        this.curOffSet = this.weatherToday.timezone + offSet;
       },
       (err: Error) => {
         console.log(err);
         this.isError = true;
       }
     );
-
   }
   public getForecastByCity(city: string) {
     this.weatherService
@@ -73,10 +93,11 @@ export class AppComponent {
     this.forecastFiveDays[0].push(this.forecastArr[0]);
     let day = 0;
     for (let i = 1; i < this.forecastArr.length; i++) {
-      if (
-        this.forecastArr[i].dt_txt.slice(0, 10) ===
-        this.forecastFiveDays[day][0].dt_txt.slice(0, 10)
-      ) {
+      let prevDate = new Date(
+        (this.forecastFiveDays[day][0].dt + this.curOffSet) * 1000
+      );
+      let nextDate = new Date((this.forecastArr[i].dt + this.curOffSet) * 1000);
+      if (prevDate.getDate() === nextDate.getDate()) {
         this.forecastFiveDays[day].push(this.forecastArr[i]);
       } else {
         day++;

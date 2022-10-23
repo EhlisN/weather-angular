@@ -15,15 +15,13 @@
       <div>Real Feel: {{ getTemp(weatherToday.main.feels_like) }}°C</div>
     </div>
     <div class="duration column">
-      <div>
-        Sunrise: {{ weatherToday.sys.sunrise * 1000 | date: "shortTime" }}
-      </div>
+      <div>Sunrise: {{ getDate(weatherToday.sys.sunrise, curOffSet) }}</div>
       <div class="sunset">
-        Sunset: {{ weatherToday.sys.sunset * 1000 | date: "shortTime" }}
+        Sunset: {{ getDate(weatherToday.sys.sunset, curOffSet) }}
       </div>
       <div>
         Duration:
-        {{ getDate(weatherToday.sys.sunset - weatherToday.sys.sunrise) }} hr
+        {{ getDate(weatherToday.sys.sunset - weatherToday.sys.sunrise, 0) }} hr
       </div>
     </div>
   </div>
